@@ -1,26 +1,24 @@
-import { useState } from "react";
-import "./App.css";
-import FirstComponent from "./components/firstComponent";
-import GetNumber from "./components/RandomNuber";
-import Counter from "./components/Counter";
-import Button from "./components/Button";
+import { BrowserRouter, Routes, Route } from "react-router";
+import Home from "./Pages/Home";
+import Courses from "./Pages/Courses";
+import SingleCourse from "./Pages/singleCourse";
+import MainLayout from "./Layouts/MainLayout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  const incrementCount = (multiply) => {
-    setCount(count + multiply);
-  };
   return (
-    <>
-      <FirstComponent name="Oleksii" planet="earth" hasPlanet />
-      <FirstComponent />
-      <GetNumber maxNumber={5} />
-      <Counter countClick={count} />
-      <Button onClick={() => incrementCount(1)} name="1x" />
-      <Button onClick={() => incrementCount(2)} name="2x" />
-      <Button onClick={() => incrementCount(3)} name="3x" />
-    </>
+    <BrowserRouter>
+      <div className="">
+        <Routes>
+          <Route element={<MainLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="courses/:courseSlug" element={<SingleCourse />} />
+          </Route>
+
+          <Route path="*" element={<h1>Page not found!</h1>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
